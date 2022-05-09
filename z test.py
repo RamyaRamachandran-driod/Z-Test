@@ -11,6 +11,7 @@ H1="The means of stolen property and recovered property have a significant diffe
 
 import pandas as pd
 from scipy import stats
+import matplotlib.pyplot as plt
 import math
 
 def ztest(x1,x2,s1,s2,n1,n2):
@@ -50,3 +51,13 @@ else:
 
 print("\nProof:",data[["Cases_Property_Recovered","Cases_Property_Stolen"]].describe())
 
+
+plt.plot(data["Cases_Property_Stolen"],data["Area_Name"])
+plt.xlabel("Stolen")
+plt.ylabel("Area")
+
+plt.figure()
+
+plt.plot(data["Cases_Property_Recovered"],data["Area_Name"])
+plt.xlabel("Recovered")
+plt.ylabel("Area")
