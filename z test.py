@@ -2,6 +2,10 @@
 DATASET FROM KAGGLE.COM
 """
 
+"""
+DATASET FROM KAGGLE.COM
+"""
+
 
 H0="The means of stolen property and recovered property have no significant difference."
 H1="The means of stolen property and recovered property have a significant difference."
@@ -10,6 +14,10 @@ H1="The means of stolen property and recovered property have a significant diffe
 import pandas as pd
 from scipy import stats
 import math
+
+def ztest(x1,x2,s1,s2,n1,n2):
+  z = abs(((x1-x2)/math.sqrt((s1**2/n1)+(s2**2/n2))))
+  return z
 
 data=pd.read_csv("10_Property_stolen_and_recovered.csv")
 
@@ -30,10 +38,9 @@ s2 = data["Cases_Property_Stolen"].std()
 n1 = len(data["Cases_Property_Recovered"])
 n2 = len(data["Cases_Property_Stolen"])
 
-
-z = abs(((x1-x2)/math.sqrt((s1**2/n1)+(s2**2/n2))))
-print("n1=",n1)#all details
-print("Calculated Z value=", z)
+z = ztest(x1,x2,s1,s2,n1,n2)
+print("When x1=",x1,"\nx2=",x2,"\ns1=",s1,"\ns2=",s2,"\nn1=",n1,"\nn2=",n2)#all details
+print("\nCalculated Z value=", z)
 
 z_table_value = 1.96
 
@@ -44,3 +51,4 @@ else:
   print("Reject H0 and accept H1, as z value is",z, "and table value of z is ", z_table_value,"\nConclusion:",H1)
 
 print("\nProof:",data[["Cases_Property_Recovered","Cases_Property_Stolen"]].describe())
+
